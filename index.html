@@ -3,99 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>선배의 웹사이트</title>
-    <style>
-        /* 전체 화면에서 가운데 정렬을 유지하기 위한 기본 스타일 */
-        body {
-            max-width: 1200px;       /* 웹사이트의 최대 너비 설정 */
-            margin: 0 auto;          /* 좌우 여백을 자동으로 두어 전체 중앙 정렬 */
-            padding: 20px;           /* 화면 가장자리와의 여백 */
-            font-family: Arial, sans-serif;
-        }
-
-        /* 제목을 가운데로 정렬 */
-        header {
-            text-align: center;
-            margin-bottom: 40px;     /* 제목과 본문 사이의 간격 */
-        }
-
-        /* 하이퍼링크와 섹션들을 가로로 배치하기 위한 컨테이너 */
-        .main-container {
-            display: flex;           /* Flexbox 레이아웃 적용 */
-            gap: 40px;               /* 사이드바와 본문 사이의 간격 */
-            min-height: 400px;       /* 최소 높이 지정 */
-        }
-
-        /* 왼쪽 사이드바 (하이퍼링크 목록) */
-        nav {
-            flex: 1;                 /* 레이아웃 비율 (사이드바 영역) */
-            max-width: 250px;        /* 사이드바의 최대 너비 제한 */
-        }
-
-        nav ul {
-            list-style-type: none;   /* 목록 앞의 점(블릿) 제거 */
-            padding: 0;
-        }
-
-        nav ul li {
-            margin-bottom: 15px;     /* 링크 간의 상하 간격 */
-        }
-
-        /* 오른쪽 본문 영역 (섹션 1, 섹션 2) */
-        main {
-            flex: 3;                 /* 레이아웃 비율 (본문 영역을 더 넓게) */
-            display: flex;
-            flex-direction: column;  /* 섹션들을 위아래로 배치 */
-            gap: 30px;               /* 섹션 1과 섹션 2 사이의 간격 */
-        }
-
-        section {
-            border: 1px dashed #ccc; /* 내용 채우기 전 구분을 위한 임시 점선 border */
-            padding: 20px;
-        }
-
-        /* 바닥글 스타일 */
-        footer {
-            margin-top: 50px;        /* 본문과의 간격 */
-            text-align: center;      /* 바닥글 내용 가운데 정렬 */
-            padding: 20px 0;
-            border-top: 1px solid #eee;
-        }
-    </style>
+    <title>Personal Webpage</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
-        <h1>웹사이트 제목을 입력하세요</h1>
+        <h1>Personal Webpage</h1>
     </header>
 
     <div class="main-container">
         
         <nav>
-            <h3>링크 목록</h3>
-            <ul>
-                <li><a href="#section1">섹션 1로 이동</a></li>
-                <li><a href="#section2">섹션 2로 이동</a></li>
-                <li><a href="https://github.com" target="_blank">외부 링크 (GitHub)</a></li>
-            </ul>
+            <details>
+                <summary>📁 섹션 메뉴 (클릭)</summary>
+                <ul>
+                    <li><a href="#section1">내부 섹션 1로 이동</a></li>
+                    <li><a href="#section2">내부 섹션 2로 이동</a></li>
+                </ul>
+            </details>
+            <details>
+                <summary>🔗 외부 링크</summary>
+                <ul>
+                    <li><h3>🌐 학교 사이트</h3></li>
+                        <li><a href="https://portal.yuhan.ac.kr/user/login.face" target="_blank">유한대학교 포털</a></li>
+                        <li><a href="https://eclass.yuhan.ac.kr/login.php" target="_blank">유한대학교 e-class</a></li>
+                        <li><a href="https://vr.yuhan.ac.kr/index.do" target="_blank">유한대 게임콘텐츠학과</a></li>
+                    <li><h3>💿 드라이브</h3></li>
+                        <li><a href="https://drive.google.com/drive/my-drive?hl=ko" target="_blank">Google Drive</a></li>
+                        <li><a href="https://nid.naver.com/nidlogin.login?url=https%3A%2F%2Fmybox.naver.com&realname=Y" target="_blank">네이버 MyBox</a></li>
+                </ul>
+            </details>
         </nav>
 
         <main>
             <section id="section1">
-                <h2>섹션 1 제목</h2>
-                <p>여기에 섹션 1의 내용을 채워 넣으시면 됩니다.</p>
-            </section>
-
-            <section id="section2">
-                <h2>섹션 2 제목</h2>
-                <p>여기에 섹션 2의 내용을 채워 넣으시면 됩니다.</p>
-            </section>
+            <h2>💼 경력 및 🗣️ 언어</h2>
+            <h3>[ 경력 사항 ]</h3>
+            <p>• 여기에 선배의 멋진 활동이나 경력 내용을 적어주세요.</p>
+            
+            <h3>[ 사용 가능한 언어 ]</h3>
+            <p>• 한국어 (모국어)<br>• 영어 (비즈니스 회화 가능)</p>
+        </section>
+    
+        <section id="section2">
+            <h2>📜 자격증</h2>
+            <p>• 정보처리기사 (2026년 취득)</p>
+            <p></p>
+        </section>
+    
+        <section id="skills">
+            <h2>🛠️ 스킬 능력치</h2>
+            <ul class="skill-list">
+                <li>
+                    <span>HTML / CSS</span>
+                    <span class="stars">★★★★★</span>
+                </li>
+                <li>
+                    <span>JavaScript</span>
+                    <span class="stars">★★★★☆</span>
+                </li>
+                <li>
+                    <span>Git & GitHub</span>
+                    <span class="stars">★★★☆☆</span>
+                </li>
+                <li>
+                    <span>Python</span>
+                    <span class="stars">★★☆☆☆</span>
+                </li>
+                <li>
+                    <span>C Language</span>
+                    <span class="stars">★☆☆☆☆</span>
+                </li>
+            </ul>
+        </section>
         </main>
-
+            <aside class="profile-sidebar">
+            <div class="profile-img">사진 영역</div>
+            
+            <div class="profile-info">
+                <h3>선배의 이름</h3>
+                <ul>
+                    <li><strong>이메일:</strong> email@example.com</li>
+                    <li><strong>소속:</strong> 깃허브 연구소</li>
+                    <li><strong>한줄소개:</strong> 나만의 웹사이트 제작 중!</li>
+                </ul>
+            </div>
+        </aside>
     </div>
 
     <footer>
-        <p>&copy; 2026 선배의 웹사이트. All rights reserved.</p>
+        <div class="sns-links">
+                <a href="https://github.com/선배아이디" target="_blank" title="GitHub">🐙 GitHub</a>
+                <a href="https://instagram.com/선배아이디" target="_blank" title="Instagram">📸 Instagram</a>
+                <a href="mailto:email@example.com" title="Email">✉️ Email</a>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2026 선배의 포트폴리오. All rights reserved.</p>
+        </div>
     </footer>
 
 </body>
