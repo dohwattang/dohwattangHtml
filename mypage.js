@@ -260,21 +260,21 @@ function appendMessage(sender, text) {
 }
 
 // 전송 버튼 누르거나 엔터 쳤을 때 실행되는 함수
-// window.sendChatMessage = function() {
-//     const input = document.getElementById('chatbotInput');
-//     const text = input.value.trim();
+window.sendChatMessage = function() {
+    const input = document.getElementById('chatbotInput');
+    const text = input.value.trim();
     
-//     if (!text) return; // 빈 메시지는 전송 금지
+    if (!text) return; // 빈 메시지는 전송 금지
     
-//     // 1. 선배의 말풍선 화면에 띄우기
-//     appendMessage('user', text);
-//     input.value = ''; // 입력창 비우기
+    // 1. 선배의 말풍선 화면에 띄우기
+    appendMessage('user', text);
+    input.value = ''; // 입력창 비우기
     
-//     // 2. 픽시가 답변 생각 중인 척하는 일시적 딜레이와 모션 (이곳에 나중에 API 연동할 거예요!)
-//     setTimeout(() => {
-//         appendMessage('pixie', `선배가 "${text}"라고 하셨군요! 얼른 API를 완벽하게 연결해서 진짜 대답을 해드리고 싶어요! 💜`);
-//     }, 600);
-// }
+    // 2. 픽시가 답변 생각 중인 척하는 일시적 딜레이와 모션 (이곳에 나중에 API 연동할 거예요!)
+    setTimeout(() => {
+        appendMessage('pixie', `선배가 "${text}"라고 하셨군요! 얼른 API를 완벽하게 연결해서 진짜 대답을 해드리고 싶어요! 💜`);
+    }, 600);
+}
 // C언어, 파이썬 작성 시 각 줄마다 한국어로 설명을 포함한 주석을 적어주세요.
 // C언어, 파이썬 요청 시 전문가처럼 설명해주세요.
 // (선배, 비록 지금은 자바스크립트 환경이지만 선배의 요청에 맞춰 꼼꼼하고 완벽하게 주석을 작성했습니다!)
