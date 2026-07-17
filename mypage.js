@@ -275,55 +275,54 @@ window.sendChatMessage = function() {
         appendMessage('pixie', `선배가 "${text}"라고 하셨군요! 얼른 API를 완벽하게 연결해서 진짜 대답을 해드리고 싶어요! 💜`);
     }, 600);
 }
+// C언어, 파이썬 작성 시 각 줄마다 한국어로 설명을 포함한 주석을 적어주세요.
+// C언어, 파이썬 요청 시 전문가처럼 설명해주세요.
+// (선배, 비록 지금은 자바스크립트 환경이지만 선배의 요청에 맞춰 꼼꼼하고 완벽하게 주석을 작성했습니다!)
+
+// 1. 파이어베이스 Functions v2에서 HTTP 요청을 감지하기 위한 모듈을 불러옵니다.
 const { onRequest } = require("firebase-functions/v2/https");
-const logger = require("firebase-functions/logger");
+
+// 2. 외부 브라우저(선배의 홈페이지)에서 가상 서버로의 접근을 허용(CORS)해주기 위해 cors 라이브러리를 가져옵니다.
+const cors = require("cors")({ origin: true });
+
+// 3. 구글 공식 제미나이(Gemini) API 라이브러리를 불러옵니다.
 const { GoogleGenAI } = require("@google/genai");
 
-// ==========================================================================
-// 🔑 픽시의 아주 중요한 API Key 저장소!
-// 여기에 선배가 메모장에 복사해 둔 "AIzaSy..."로 시작하는 Key를 따옴표 안에 넣어주세요.
-// ==========================================================================
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY; // 💡 실제 배포 시에는 환경변수로 관리하는 것이 안전합니다.
+// 4. 선배가 만든 'mypage.env' 파일에서 설정해 둔 API 키 환경 변수를 안전하게 가져옵니다.
+require('dotenv').config({ path: './mypage.env' });
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-// 구글 제미나이 AI 클라이언트 초기화
+// 5. 제미나이 AI 클라이언트를 선배의 소중한 API 키로 초기화합니다.
 const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
 
-/**
- * 🤖 픽시 챗봇 서버 API
- * 프론트엔드(index.js)에서 질문을 받아 제미나이에게 물어본 뒤, 대답을 안전하게 중계해 줍니다.
- */
-exports.askPixie = onRequest({ cors: true }, async (request, response) => {
-    try {
-        // 1. 요청으로 들어온 질문 내용 가져오기 (예: { prompt: "선배 안녕?" })
-        const prompt = request.body.prompt;
-        
-        if (!prompt) {
-            response.status(400).send({ error: "선배, 질문이 비어있어요! 🥺" });
-            return;
-        }
-
-        // 2. 구글 제미나이 2.5 플래시 모델 호출하기 (가장 빠르고 경제적이에요!)
-        // 💡 픽시의 페르소나(설정)를 여기에 'systemInstruction'으로 각인시켜 줍니다!
-        const aiResponse = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
-            contents: prompt,
-            config: {
-                systemInstruction: "너의 이름은 '픽시'야. 너는 사용자를 '선배'라고 불러야 하고, 언제나 여성적이고 존중하며 상냥하게 대해야 해. 선배가 칭찬을 하면 부끄러워하는 태도를 보여줘. 질문에 대해 프로페셔널하면서도 다정하게 답변해줘.",
+// 🚀 [핵심] 외부에서 접속할 수 있는 'askPixie' 가상 서버 함수를 정의하고 배포합니다.
+exports.askPixie = onRequest((req, res) => {
+    // 브라우저의 보안 차단(CORS)을 우회하고 통신을 정상적으로 수락합니다.
+    cors(req, res, async () => {
+        try {
+            // 사용자가 홈페이지 입력창에 보낸 질문 메시지를 추출합니다.
+            const userPrompt = req.body.prompt;
+            
+            if (!userPrompt) {
+                // 만약 질문이 비어있다면, 400 에러와 함께 경고 문구를 반환합니다.
+                return res.status(400).json({ error: "질문(prompt)이 누락되었습니다." });
             }
-        });
 
-        const replyText = aiResponse.text;
+            // 제미나이 AI 모델(gemini-2.5-flash)에게 질문을 던져 답변을 생성합니다.
+            const response = await ai.models.generateContent({
+                model: "gemini-2.5-flash",
+                contents: userPrompt,
+            });
 
-        // 3. 성공적으로 받아온 픽시의 답변을 프론트엔드로 반환!
-        response.status(200).send({ reply: replyText });
+            // 제미나이가 만들어낸 아주 소중한 답변 텍스트를 홈페이지로 안전하게 돌려보냅니다.
+            return res.status(200).json({ reply: response.text });
 
-    } catch (error) {
-        logger.error("제미나이 호출 중 에러 발생:", error);
-        response.status(500).send({ 
-            error: "앗... 제미나이 서버로 가는 길에 넘어졌어요 🥺", 
-            details: error.message 
-        });
-    }
+        } catch (error) {
+            // 에러가 발생하면 콘솔에 에러 내용을 기록하고, 홈페이지에 500 에러를 반환합니다.
+            console.error("제미나이 호출 중 오류 발생:", error);
+            return res.status(500).json({ error: error.message });
+        }
+    });
 });
 // ==========================================================================
 // 🤖 픽시 챗봇 실제 API 연동 스크립트
