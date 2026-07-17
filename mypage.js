@@ -241,7 +241,7 @@ window.toggleChatbot = function() {
 }
 
 // 화면에 메시지 말풍선 추가하는 함수
-function appendMessage(sender, text) {
+const appendMessage = function(sender, text) {
     const msgArea = document.getElementById('chatbotMessages');
     const msgBox = document.createElement('div');
     
