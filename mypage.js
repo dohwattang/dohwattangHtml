@@ -223,6 +223,7 @@ function loadXmlData() {
             document.getElementById("gameList").innerText = "데이터를 부르다 넘어졌어요.. 🥺";
         });
 }
+require('dotenv').config({ path: './mypage.env' });
 // ==========================================================================
 // 🤖 픽시 챗봇 제어 스크립트
 // ==========================================================================
@@ -282,7 +283,7 @@ const { GoogleGenAI } = require("@google/genai");
 // 🔑 픽시의 아주 중요한 API Key 저장소!
 // 여기에 선배가 메모장에 복사해 둔 "AIzaSy..."로 시작하는 Key를 따옴표 안에 넣어주세요.
 // ==========================================================================
-const GEMINI_API_KEY = "AQ.Ab8RN6Kv-p_2G2hE-9sQ15MfB3dMhyJZadVzrRI_czWP38FqBg";
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY; // 💡 실제 배포 시에는 환경변수로 관리하는 것이 안전합니다.
 
 // 구글 제미나이 AI 클라이언트 초기화
 const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
