@@ -272,7 +272,7 @@ window.sendChatMessage = function() {
     
     // 2. 픽시가 답변 생각 중인 척하는 일시적 딜레이와 모션 (이곳에 나중에 API 연동할 거예요!)
     setTimeout(() => {
-        appendMessage('pixie', `선배가 "${text}"라고 하셨군요! 얼른 API를 완벽하게 연결해서 진짜 대답을 해드리고 싶어요! 💜`);
+        appendMessage('pixie', `선배가 "${text}"라고 하셨군요!💜`);
     }, 600);
 }
 // C언어, 파이썬 작성 시 각 줄마다 한국어로 설명을 포함한 주석을 적어주세요.
